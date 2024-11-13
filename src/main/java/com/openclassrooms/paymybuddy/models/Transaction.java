@@ -19,18 +19,18 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "sender_id", nullable = false)
-    private Users sender;
+    private User sender;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "receiver_id", nullable = false)
-    private Users receiver;
+    private User receiver;
 
     @Column(nullable = false)
     private Double amount;
 
     @Column(nullable = false)
-    private LocalDateTime transactionDate;
+    private LocalDateTime date;
 
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p th:text="${newUser}"/>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Users names</th>
+                <th scope="col">Users emails</th>
+                <th scope="col">Users password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="entry: ${list}">
+                <td th:text="${entry.value.username}">Valeur</td>
+                <td th:text="${entry.value.email}">Valeur</td>
+                <td th:text="${entry.value.password}">Valeur</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

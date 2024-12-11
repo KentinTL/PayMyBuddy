@@ -9,15 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @AllArgsConstructor
 @Controller
 public class RegisterController {
     private IUserService userService;
 
-    @GetMapping
+    @GetMapping("/register")
     public String home(Model model){
         model.addAttribute("user", new UserDto());
         return "register";
@@ -26,9 +23,6 @@ public class RegisterController {
     @PostMapping("/submit")
     public String addUser(@ModelAttribute UserDto user, Model model) {
         this.userService.create(user);
-        HashMap<String, UserDto> newUser = new HashMap<>();
-        newUser.put("User", user);
-        model.addAllAttributes(Map.of("list", newUser));
         return "home";
     }
 }

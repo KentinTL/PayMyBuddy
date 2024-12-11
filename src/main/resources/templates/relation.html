@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pay My Buddy</title>
+</head>
+<body>
+<div th:insert="~{header :: header}"></div>
+<main>
+    <h2>Ajouter une nouvelle relation</h2>
+    <p>User ID : <span th:text="${userId}"></span></p>
+
+    <!-- Formulaire pour ajouter une relation -->
+    <form method="post" th:action="@{/users/{userId}/relations(userId=${userId ?: 1})}">
+        <label for="friendEmail">Email de la relation :</label>
+        <input type="email" id="friendEmail" name="friendEmail" placeholder="Adresse email" required />
+        <button type="submit">Ajouter Relation</button>
+    </form>
+
+    <!-- Messages de validation -->
+    <div th:if="${successMessage}">
+        <p style="color: green;" th:text="${successMessage}"></p>
+    </div>
+    <div th:if="${errorMessage}">
+        <p style="color: red;" th:text="${errorMessage}"></p>
+    </div>
+
+    <h3>Vos relations</h3>
+    <!-- Liste des relations -->
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="relation : ${relations}">
+            <td th:text="${relation.username}"></td>
+            <td th:text="${relation.email}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

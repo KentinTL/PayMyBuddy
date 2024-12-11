@@ -2,25 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Pay My Buddy</title>
 </head>
 <body>
-    <p th:text="${newUser}"/>
-    <table>
-        <thead>
-            <tr>
-                <th scope="col">Users names</th>
-                <th scope="col">Users emails</th>
-                <th scope="col">Users password</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="entry: ${list}">
-                <td th:text="${entry.value.username}">Valeur</td>
-                <td th:text="${entry.value.email}">Valeur</td>
-                <td th:text="${entry.value.password}">Valeur</td>
-            </tr>
-        </tbody>
-    </table>
+    <div th:insert="~{header :: header}"></div>
+    <main>
+        <h2 th:text="'Profile de ' + ${username}"></h2>
+        <form>
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" th:value="${username}" />
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" th:value="${email}" />
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="text" id="password" name="password" th:value="${password}" />
+            </div>
+        </form>
+    </main>
 </body>
 </html>

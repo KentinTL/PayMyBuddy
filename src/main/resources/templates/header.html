@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pay My Buddy</title>
+</head>
+<body>
+    <header th:fragment="~{header :: header}">
+        <nav>
+            <div class="header_logo">
+                <h1>Pay My Buddy</h1>
+            </div>
+            <ul>
+                <li><a th:href="@{/transactions}">Transférer</a></li>
+                <li><a th:href="@{/home}">Profile</a></li>
+                <li><a th:href="@{/relation}">Ajouter relation</a></li>
+                <li><a th:href="@{/logout}">Se déconnecter</a></li>
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>

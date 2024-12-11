@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pay My Buddy</title>
+</head>
+<body>
+    <h1>Connexion</h1>
+
+    <form th:action="@{/home}" method="post">
+        
+        <label for="email">Email:</label>
+        <input type="email" th:name="email" id="email" placeholder="Votre email" required/>
+
+        <label for="password">Mot de passe:</label>
+        <input type="password" th:name="password" id="password" placeholder="Votre mot de passe" required/>
+
+        <button type="submit">Connexion</button>
+    </form>
+</body>
+</html>

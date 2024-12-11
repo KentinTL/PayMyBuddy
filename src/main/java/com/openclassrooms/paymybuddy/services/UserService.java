@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service
@@ -35,7 +36,7 @@ public class UserService implements IUserService{
         existingUser.setUsername(user.getUsername());
         existingUser.setEmail(user.getEmail());
         existingUser.setPassword(user.getPassword());
-        return userRepo.save(existingUser);
+        return userRepo.saveAndFlush(existingUser);
     }
 
     @Override
@@ -48,5 +49,27 @@ public class UserService implements IUserService{
     @Override
     public List<User> findAll() {
         return userRepo.findAll();
+    }
+
+    public void addRelation(Long userId, String friendEmail) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+
+        User relation = userRepo.findByEmail(friendEmail)
+                .orElseThrow(() -> new RuntimeException("Aucun utilisateur trouvé avec cet email"));
+
+        if (user.getFriends().contains(relation)) {
+            throw new RuntimeException("Cette relation existe déjà.");
+        }
+
+        user.getFriends().add(relation);
+        userRepo.save(user);
+    }
+
+    public Set<User> getRelations(Long userId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+
+        return user.getFriends();
     }
 }

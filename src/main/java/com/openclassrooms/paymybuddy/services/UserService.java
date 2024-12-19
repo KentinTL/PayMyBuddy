@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -58,12 +59,24 @@ public class UserService implements IUserService{
         User relation = userRepo.findByEmail(friendEmail)
                 .orElseThrow(() -> new RuntimeException("Aucun utilisateur trouvé avec cet email"));
 
-        if (user.getFriends().contains(relation)) {
+        if (Objects.equals(relation.getId(), user.getId())) {
+            throw new RuntimeException("Vous ne pouvez pas vous ajouter vous-même !");
+        }
+
+        var relationEmails = user.getFriends().stream().map(User::getEmail).toList();
+
+        if (relationEmails.contains(relation.getEmail())) {
             throw new RuntimeException("Cette relation existe déjà.");
         }
 
         user.getFriends().add(relation);
         userRepo.save(user);
+    }
+
+    @Override
+    public User getUserById(Long userId) {
+        return  userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
     }
 
     public Set<User> getRelations(Long userId) {

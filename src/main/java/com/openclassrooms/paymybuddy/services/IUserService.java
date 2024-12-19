@@ -13,4 +13,5 @@ public interface IUserService {
     List<User> findAll();
     Set<User> getRelations(Long userId);
     void addRelation(Long userId, String friendEmail);
+    User getUserById(Long userId);
 }

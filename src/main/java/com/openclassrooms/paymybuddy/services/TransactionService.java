@@ -24,7 +24,7 @@ public class TransactionService {
     private IUserRepository userRepo;
 
     @Autowired
-    private AccountBalanceService accountBalanceService;
+    private IAccountBalanceService accountBalanceService;
 
     public Transaction makeTransfer(TransferDto transferDto) {
 
@@ -57,9 +57,9 @@ public class TransactionService {
         return transactionRepo.save(transaction);
     }
 
-    public Transaction makeDeposit(Long userId, BigDecimal amount, String description) {
-        
-    }
+//    public Transaction makeDeposit(Long userId, BigDecimal amount, String description) {
+//
+//    }
 
     public List<Transaction> getTransactionsByUserId(Long userId) {
         return transactionRepo.findBySenderIdOrReceiverId(userId, userId);

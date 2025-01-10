@@ -5,10 +5,12 @@ import com.openclassrooms.paymybuddy.models.TransactionType;
 import com.openclassrooms.paymybuddy.repositories.ITransactionRepository;
 import com.openclassrooms.paymybuddy.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-public class AccountBalanceService {
+@Service
+public class AccountBalanceService implements IAccountBalanceService {
     @Autowired
     private ITransactionRepository iTransactionRepository;
 
@@ -17,18 +19,19 @@ public class AccountBalanceService {
 
     public BigDecimal getBalance(Long userId) {
         userRepository.findById(userId).orElseThrow(() -> new RuntimeException("No user found with this id : " + userId));
+
         var deposits = iTransactionRepository.findAll().stream()
                 .filter(transaction -> (transaction.getTransactionType().equals(TransactionType.DEPOSIT) ||
                         (transaction.getTransactionType().equals(TransactionType.TRANSFER) && transaction.getReceiver().getId().equals(userId))))
                 .map(Transaction::getAmount)
-                .mapToDouble(Double::doubleValue)
-                .sum();
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
         var withdrawals = iTransactionRepository.findAll().stream()
                 .filter(transaction -> (transaction.getTransactionType().equals(TransactionType.WITHDRAWAL) ||
                         (transaction.getTransactionType().equals(TransactionType.TRANSFER) && transaction.getSender().getId().equals(userId))))
                 .map(Transaction::getAmount)
-                .mapToDouble(Double::doubleValue)
-                .sum();
-        return BigDecimal.valueOf(deposits).subtract(BigDecimal.valueOf(withdrawals));
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        return deposits.subtract(withdrawals);
     }
 }

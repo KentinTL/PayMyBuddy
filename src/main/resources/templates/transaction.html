@@ -9,22 +9,26 @@
 <main>
   <h2>Transférer des fonds</h2>
 
+<!--  <div>-->
+<!--    <p>Solde actuel : <span th:value=""></span></p>-->
+<!--  </div>-->
+
   <!-- Formulaire pour effectuer une transaction -->
-  <form method="post" th:action="@{/transaction}">
-    <input type="hidden" name="userId" th:value="${userId ?: 1}"/> <!-- ID de l'utilisateur connecté -->
+  <form method="post" th:action="@{/transaction}" th:object="${transferDto}">
+    <input type="hidden" name="userId" th:field="*{userId}" th:value="${userId ?: 1}"/> <!-- ID de l'utilisateur connecté -->
 
     <label for="receiver">Relation :</label>
-    <select id="receiver" name="receiverId" required>
+    <select id="receiver" name="receiverId" th:field="*{receiverId}" required>
       <option value="">Sélectionner une relation</option>
       <!-- Remplir la liste des relations -->
       <option th:each="relation : ${relations}" th:value="${relation.id}" th:text="${relation.username}"></option>
     </select>
 
     <label for="description">Description :</label>
-    <input type="text" id="description" name="description" placeholder="Description (optionnel)"/>
+    <input type="text" id="description" name="description" th:field="*{description}" placeholder="Description (optionnel)"/>
 
     <label for="amount">Montant :</label>
-    <input type="number" id="amount" name="amount" placeholder="Montant €" step="0.01" min="0.01" required/>
+    <input type="number" id="amount" name="amount" th:field="*{amount}" placeholder="Montant €" step="0.10" min="1" required/>
 
     <button type="submit">Payer</button>
   </form>
@@ -53,9 +57,9 @@
       <td th:text="${transaction.receiver.username}"></td>
       <td th:text="${transaction.description ?: 'Aucune'}"></td>
       <td th:text="${transaction.amount} + ' €'"></td>
-      <td th:text="${#dates.format(transaction.date, 'dd/MM/yyyy HH:mm')}"></td>
+<!--      <td th:text="${transaction.date != null ? #dates.format(transaction.date, 'dd/MM/yyyy HH:mm') : 'Non spécifiée'}"></td>-->
     </tr>
-    <tr th:if="${!#lists.isEmpty(transactions)}">
+    <tr th:if="${#lists.isEmpty(transactions)}">
       <td colspan="4" style="text-align: center;">Aucune transaction trouvée.</td>
     </tr>
     </tbody>

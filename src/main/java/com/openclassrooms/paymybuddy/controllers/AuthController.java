@@ -33,6 +33,7 @@ public class AuthController {
         model.addAttribute("username", userActive.getUsername());
         model.addAttribute("email", userActive.getEmail());
         model.addAttribute("password", userActive.getPassword());
+        //Cheboum
 
         return "home";
     }

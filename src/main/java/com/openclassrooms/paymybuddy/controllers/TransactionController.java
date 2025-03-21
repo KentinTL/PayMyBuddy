@@ -1,17 +1,14 @@
 package com.openclassrooms.paymybuddy.controllers;
 
 import com.openclassrooms.paymybuddy.dto.TransferDto;
-import com.openclassrooms.paymybuddy.services.AccountBalanceService;
-import com.openclassrooms.paymybuddy.services.TransactionService;
-import com.openclassrooms.paymybuddy.services.UserService;
+import com.openclassrooms.paymybuddy.services.*;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
 
 @Slf4j
 @Controller
@@ -24,14 +21,22 @@ public class TransactionController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{userId}")
-    public String transactionPage(@PathVariable Long userId, Model model) {
+    @Autowired
+    private UserInfos userInfos;
+
+    @Autowired
+    private IAccountBalanceService accountBalanceService;
+
+    @GetMapping
+    public String transactionPage(Model model) {
         try {
-            // Charger les relations et les transactions
+            var userId =  userInfos.getUserInfos().getId();
+
             model.addAttribute("relations", userService.getRelations(userId));
             model.addAttribute("transactions", transactionService.getTransactionsByUserId(userId));
             model.addAttribute("userId", userId);
-            model.addAttribute("transferDo", new TransferDto());
+            model.addAttribute("transferDto", new TransferDto());
+            model.addAttribute("balance", accountBalanceService.getBalance(userId));
         } catch (RuntimeException e) {
             model.addAttribute("errorMessage", "Erreur lors du chargement des données : " + e.getMessage());
         }
@@ -39,7 +44,7 @@ public class TransactionController {
     }
 
     @PostMapping
-    public String makeTransaction(@Valid @ModelAttribute("transferDto") TransferDto transferDto, Model model) {
+    public String makeTransaction(@Valid @ModelAttribute("transferDto") TransferDto transferDto, BindingResult bindingResult, Model model) {
         try {
             transactionService.makeTransfer(transferDto);
             model.addAttribute("successMessage", "Transaction effectuée avec succès !");
@@ -47,10 +52,10 @@ public class TransactionController {
             model.addAttribute("errorMessage", e.getMessage());
         }
 
-        // Recharger les données pour l'affichage
         model.addAttribute("relations", userService.getRelations(transferDto.getUserId()));
         model.addAttribute("transactions", transactionService.getTransactionsByUserId(transferDto.getUserId()));
         model.addAttribute("userId", transferDto.getUserId());
+        model.addAttribute("balance", accountBalanceService.getBalance(transferDto.getUserId()));
 
         return "transaction";
     }

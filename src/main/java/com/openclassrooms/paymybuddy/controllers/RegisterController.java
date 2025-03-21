@@ -22,7 +22,13 @@ public class RegisterController {
 
     @PostMapping("/submit")
     public String addUser(@ModelAttribute UserDto user, Model model) {
-        this.userService.create(user);
-        return "home";
+        try {
+            this.userService.create(user);
+            model.addAttribute("successMessage", "Votre compte a été créé avec succès ! <br> Vous pouvez vous connecter en cliquant sur ce <a href='login.html'>lien</a>");
+            return "confirmation";
+        } catch (RuntimeException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "register";
+        }
     }
 }

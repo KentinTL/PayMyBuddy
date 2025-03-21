@@ -1,0 +1,39 @@
+body {
+    font-family: "Be Vietnam Pro", serif;
+}
+
+.blue_back {
+    background-color: #207FEE;
+}
+
+.yellow_back {
+    background-color: #F69F1D;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    padding: 12px 16px;
+    text-align: center;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+input {
+    border: none;
+    padding: 12px 16px;
+}
+
+input::placeholder {
+    color: #828282;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+

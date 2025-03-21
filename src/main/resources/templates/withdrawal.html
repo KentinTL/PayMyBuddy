@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Pay My Buddy - Transactions</title>
+  <title>Pay My Buddy - Dépots</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,16 +22,10 @@
     <p>Solde actuel : <span th:text="${balance} + €"></span></p>
   </div>
 
-  <h2>Transférer des fonds</h2>
+  <h2>Retirer des fonds</h2>
 
-  <form method="post" th:action="@{/transaction}" th:object="${transferDto}">
-    <input type="hidden" id="userId" name="userId" th:value="${userId}"/> <!-- ID de l'utilisateur connecté -->
-
-    <label for="receiver">Relation :</label>
-    <select id="receiver" name="receiverId" required>
-      <option value="">Sélectionner une relation</option>
-      <option th:each="relation : ${relations}" th:value="${relation.id}" th:text="${relation.username}"></option>
-    </select>
+  <form method="post" th:action="@{/withdrawal}" th:object="${withdrawalDto}">
+    <input type="hidden" id="userId" name="userId" th:value="${userId ?: 1}"/> <!-- ID de l'utilisateur connecté -->
 
     <label for="description">Description :</label>
     <input type="text" id="description" name="description" placeholder="Description (optionnel)"/>
@@ -49,22 +43,20 @@
     <p style="color: red;" th:text="${errorMessage}"></p>
   </div>
 
-  <h3>Mes Transactions</h3>
+  <h3>Mon Historique de Transactions</h3>
   <table>
     <thead>
     <tr>
-      <th>Relation</th>
-      <th>Description</th>
-      <th>Montant</th>
-      <th>Date</th>
+      <th class="col-4">Description</th>
+      <th class="col-4">Montant</th>
+      <th class="col-4">Date</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="transaction : ${transactions}">
-      <td th:text="${transaction.receiver.username}"></td>
-      <td th:text="${transaction.description ?: 'Aucune'}"></td>
-      <td th:text="${transaction.amount} + ' €'"></td>
-      <td class="col-3" th:text="${#temporals.format(transaction.date, 'dd/MM/yy HH:mm')}"></td>
+      <td class="col-4" th:text="${transaction.description ?: 'Aucune'}"></td>
+      <td class="col-4" th:text="${transaction.amount} + ' €'"></td>
+      <td class="col-4" th:text="${#temporals.format(transaction.date, 'dd/MM/yy HH:mm')}"></td>
     </tr>
     <tr th:if="${#lists.isEmpty(transactions)}">
       <td colspan="4" style="text-align: center;">Aucune transaction trouvée.</td>

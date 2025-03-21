@@ -1,0 +1,31 @@
+.home-title {
+    margin: 25px auto;
+}
+form {
+    align-items: flex-end;
+    display: flex;
+    margin: 0 auto;
+    max-width: 475px;
+    position: relative;
+}
+
+form .form-group {
+    margin: 0 auto;
+}
+
+form .form-control {
+    align-items: center;
+    border: none;
+    display: flex;
+    margin: 14px auto;
+}
+
+form .form-footer {
+    align-items: center;
+    display: flex;
+    position: absolute;
+    right: 0px;
+    bottom: 25px;
+    justify-content: center;
+    margin: 0 auto;
+}

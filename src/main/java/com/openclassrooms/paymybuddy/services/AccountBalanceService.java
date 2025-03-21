@@ -21,15 +21,15 @@ public class AccountBalanceService implements IAccountBalanceService {
         userRepository.findById(userId).orElseThrow(() -> new RuntimeException("No user found with this id : " + userId));
 
         var deposits = iTransactionRepository.findAll().stream()
-                .filter(transaction -> (transaction.getTransactionType().equals(TransactionType.DEPOSIT) ||
+                .filter(transaction -> ((transaction.getTransactionType().equals(TransactionType.DEPOSIT) && transaction.getSender().getId().equals(userId)) ||
                         (transaction.getTransactionType().equals(TransactionType.TRANSFER) && transaction.getReceiver().getId().equals(userId))))
                 .map(Transaction::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         var withdrawals = iTransactionRepository.findAll().stream()
-                .filter(transaction -> (transaction.getTransactionType().equals(TransactionType.WITHDRAWAL) ||
+                .filter(transaction -> ((transaction.getTransactionType().equals(TransactionType.WITHDRAWAL) && transaction.getSender().getId().equals(userId)) ||
                         (transaction.getTransactionType().equals(TransactionType.TRANSFER) && transaction.getSender().getId().equals(userId))))
-                .map(Transaction::getAmount)
+                .map(Transaction::getTotalAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return deposits.subtract(withdrawals);

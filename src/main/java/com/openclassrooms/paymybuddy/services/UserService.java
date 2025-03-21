@@ -5,11 +5,11 @@ import com.openclassrooms.paymybuddy.models.User;
 import com.openclassrooms.paymybuddy.repositories.IUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -17,6 +17,9 @@ import java.util.Set;
 public class UserService implements IUserService{
     @Autowired
     private IUserRepository userRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User create(UserDto user) {
@@ -26,7 +29,7 @@ public class UserService implements IUserService{
         }
         newUser.setUsername(user.getUsername());
         newUser.setEmail(user.getEmail());
-        newUser.setPassword(user.getPassword());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(newUser);
     }
 

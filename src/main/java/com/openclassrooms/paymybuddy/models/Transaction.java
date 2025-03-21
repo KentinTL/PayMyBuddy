@@ -32,6 +32,9 @@ public class Transaction {
     private BigDecimal amount;
 
     @Column(nullable = false)
+    private BigDecimal fee;
+
+    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
@@ -40,4 +43,7 @@ public class Transaction {
     @Column(nullable = false)
     private TransactionType transactionType;
 
+    public BigDecimal getTotalAmount() {
+        return amount.add(fee);
+    }
 }

@@ -12,25 +12,18 @@ form .form-group {
     align-items: center;
     display: flex;
     margin: 0 auto;
+    justify-content: space-around;
 }
 
 form .form-control {
     align-items: center;
     display: flex;
-    margin: 14px auto;
-    max-width: 330px;
-}
-
-form .form-control select {
-    border: none;
-    font-size: 14px;
-    max-width: 220px;
-    padding: 13px 0 13px 10px;
-    width: 100%;
+    margin: 14px 0;
+    max-width: 500px;
 }
 
 form .form-control input {
-    max-width: 200px;
+    max-width: 300px;
     width: 100%;
 }
 

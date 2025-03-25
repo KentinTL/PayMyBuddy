@@ -18,30 +18,52 @@
     <div th:insert="~{header :: header}"></div>
     <main>
         <div class="home-title text-center">
-            <h2 th:text="'Profile de ' + ${username}"></h2>
-            <p>Solde actuel : <span th:text="${balance} + €"></span></p>
+            <h2 th:text="${username}"></h2>
         </div>
         <form>
             <div class="form-group">
                 <div class="form-control">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" th:value="${username}" />
+                    <input type="text" id="username" name="username" th:value="${username}" readonly />
                 </div>
                 <div class="form-control">
                     <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" th:value="${email}" />
+                    <input type="text" id="email" name="email" th:value="${email}" readonly />
                 </div>
                 <div class="form-control">
                     <label for="password">Password:</label>
-                    <input type="text" id="password" name="password" th:value="${password}" />
+                    <input type="password" id="password" name="password" th:value="${password}" readonly />
                 </div>
             </div>
             <div class="form-footer">
-                <button class="yellow_back">
+                <button class="yellow_back" disabled>
                     Modifier
                 </button>
             </div>
         </form>
     </main>
 </body>
+<script>
+    document.querySelectorAll("button[disabled]").forEach(input => {
+        input.addEventListener("mouseenter", function (event) {
+            let tooltip = document.createElement("div");
+            tooltip.className = "custom-tooltip";
+            tooltip.innerText = "Cette fonctionnalité arrive bientôt";
+            document.body.appendChild(tooltip);
+
+            function moveTooltip(e) {
+                tooltip.style.left = e.pageX + 10 + "px";
+                tooltip.style.top = e.pageY + 10 + "px";
+            }
+
+            moveTooltip(event);
+            document.addEventListener("mousemove", moveTooltip);
+
+            input.addEventListener("mouseleave", function () {
+                document.body.removeChild(tooltip);
+                document.removeEventListener("mousemove", moveTooltip);
+            });
+        });
+    });
+</script>
 </html>

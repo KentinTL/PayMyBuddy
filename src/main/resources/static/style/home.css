@@ -20,12 +20,29 @@ form .form-control {
     margin: 14px auto;
 }
 
+form .form-control input:hover {
+    cursor: not-allowed;
+}
+
 form .form-footer {
     align-items: center;
     display: flex;
-    position: absolute;
-    right: 0px;
-    bottom: 25px;
     justify-content: center;
     margin: 0 auto;
+}
+
+form .form-footer button:hover {
+    cursor: not-allowed;
+}
+
+.custom-tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1000;
 }

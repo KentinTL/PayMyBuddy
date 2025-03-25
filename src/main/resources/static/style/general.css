@@ -36,4 +36,13 @@ input::placeholder {
     font-weight: bold;
 }
 
+.header_logo {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.header_logo h1 {
+    font-size: 24px;
+}
 

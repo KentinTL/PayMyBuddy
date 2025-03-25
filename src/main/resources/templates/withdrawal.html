@@ -18,22 +18,27 @@
 <body class="container">
 <div th:insert="~{header :: header}"></div>
 <main>
-  <div>
+  <div class="transfert-title text-center">
+    <h2>Retirer des fonds</h2>
     <p>Solde actuel : <span th:text="${balance} + €"></span></p>
   </div>
 
-  <h2>Retirer des fonds</h2>
 
   <form method="post" th:action="@{/withdrawal}" th:object="${withdrawalDto}">
     <input type="hidden" id="userId" name="userId" th:value="${userId ?: 1}"/> <!-- ID de l'utilisateur connecté -->
-
-    <label for="description">Description :</label>
-    <input type="text" id="description" name="description" placeholder="Description (optionnel)"/>
-
-    <label for="amount">Montant :</label>
-    <input type="number" id="amount" name="amount" placeholder="Montant €" step="0.10" min="1" required/>
-
-    <button type="submit">Payer</button>
+    <div class="form-group">
+      <div class="form-control">
+        <label for="description">Description :</label>
+        <input type="text" id="description" name="description" placeholder="Description (optionnel)"/>
+      </div>
+      <div class="form-control">
+        <label for="amount">Montant :</label>
+        <input type="number" id="amount" name="amount" placeholder="Montant €" step="0.10" min="1" required/>
+      </div>
+      <div class="form-footer">
+        <button class="blue_back" type="submit">Payer</button>
+      </div>
+    </div>
   </form>
 
   <div th:if="${successMessage}">
@@ -43,26 +48,28 @@
     <p style="color: red;" th:text="${errorMessage}"></p>
   </div>
 
-  <h3>Mon Historique de Transactions</h3>
-  <table>
-    <thead>
-    <tr>
-      <th class="col-4">Description</th>
-      <th class="col-4">Montant</th>
-      <th class="col-4">Date</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="transaction : ${transactions}">
-      <td class="col-4" th:text="${transaction.description ?: 'Aucune'}"></td>
-      <td class="col-4" th:text="${transaction.amount} + ' €'"></td>
-      <td class="col-4" th:text="${#temporals.format(transaction.date, 'dd/MM/yy HH:mm')}"></td>
-    </tr>
-    <tr th:if="${#lists.isEmpty(transactions)}">
-      <td colspan="4" style="text-align: center;">Aucune transaction trouvée.</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="table">
+    <h3>Mon Historique de Transactions</h3>
+    <table>
+      <thead>
+      <tr class="tr-title row">
+        <th class="col-4">Description</th>
+        <th class="col-4">Montant</th>
+        <th class="col-4">Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="tr-content row" th:each="transaction : ${transactions}">
+        <td class="col-4" th:text="${transaction.description ?: 'Aucune'}"></td>
+        <td class="col-4" th:text="${transaction.amount} + ' €'"></td>
+        <td class="col-4" th:text="${#temporals.format(transaction.date, 'dd/MM/yy HH:mm')}"></td>
+      </tr>
+      <tr class="tr-nocontent" th:if="${#lists.isEmpty(transactions)}">
+        <td colspan="4" style="text-align: center;">Aucune transaction trouvée.</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </main>
 </body>
 </html>

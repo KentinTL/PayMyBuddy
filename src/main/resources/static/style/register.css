@@ -1,0 +1,47 @@
+body {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+form {
+    border: solid 2px #000000;
+    max-width: 400px;
+    margin: 50px auto 0;
+    padding: 15px;
+    width: 100%;
+}
+
+form h1 {
+    border-radius: 8px;
+    color: white;
+    font-size: 24px;
+    line-height: 36px;
+    margin: 0px auto;
+    max-width: 200px;
+    padding: 14px 10px;
+    text-align: center;
+}
+
+form .form-group {
+    margin: 0px auto;
+}
+
+form .form-control {
+    display: flex;
+    flex-direction: column;
+    margin: 42px auto;
+    max-width: 295px;
+}
+
+form .form-footer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px auto;
+}
+
+form .form-footer p {
+    margin-top: 15px;
+}

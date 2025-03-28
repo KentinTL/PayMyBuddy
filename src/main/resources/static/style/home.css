@@ -1,0 +1,48 @@
+.home-title {
+    margin: 25px auto;
+}
+form {
+    align-items: flex-end;
+    display: flex;
+    margin: 0 auto;
+    max-width: 475px;
+    position: relative;
+}
+
+form .form-group {
+    margin: 0 auto;
+}
+
+form .form-control {
+    align-items: center;
+    border: none;
+    display: flex;
+    margin: 14px auto;
+}
+
+form .form-control input:hover {
+    cursor: not-allowed;
+}
+
+form .form-footer {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+form .form-footer button:hover {
+    cursor: not-allowed;
+}
+
+.custom-tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1000;
+}

@@ -3,6 +3,9 @@
 ## 📜 Description
 PayMyBuddy est une application qui permet d'effectuer des virements d'argent entre amis ou de recevoir des paiements en quelques clics, à l'image de services comme PayPal ou WERO. Elle répond au besoin de simplifier le remboursement entre particuliers sans nécessiter de coordonnées bancaires complexes, contrairement aux services bancaires traditionnels.
 
+## 🗂️ Modèle Physique de Données
+![Modèle Physique de Données](./data_model.png)
+
 ## 🚀 Fonctionnalités
 - **Inscription** : Créez un compte avec une adresse e-mail et un mot de passe.
 - **Connexion** : Accédez à votre compte sécurisé.
@@ -33,15 +36,15 @@ PayMyBuddy est une application qui permet d'effectuer des virements d'argent ent
    cd PayMyBuddy
    ```
 2. **Configurer la base de données** :
-    - Créez une base de données MySQL nommée `paymybuddy`.
-    - Mettez à jour le fichier `application.properties` avec vos informations MySQL.
+   - Créez une base de données MySQL nommée `paymybuddy`.
+   - Mettez à jour le fichier `application.properties` avec vos informations MySQL.
 
 3. **Compiler et lancer l'application** :
    ```bash
    ./mvnw spring-boot:run
    ```
 4. **Accéder à l'application** :
-    - URL : `http://localhost:8080`
+   - URL : `http://localhost:8080`
 
 ## 🔒 Sécurité
 - Utilisation de **Spring Security 6** pour l'authentification et l'autorisation.

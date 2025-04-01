@@ -41,6 +41,7 @@ public class Transaction {
     private LocalDateTime date;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 
     public BigDecimal getTotalAmount() {

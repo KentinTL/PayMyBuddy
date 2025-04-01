@@ -28,6 +28,8 @@ PayMyBuddy est une application qui permet d'effectuer des virements d'argent ent
 - **Maven**
 - **MySQL 8**
 - **Spring Boot**
+- **HTML 5**
+- **CSS**
 
 ## ⚙️ Installation
 1. **Cloner le dépôt** :
